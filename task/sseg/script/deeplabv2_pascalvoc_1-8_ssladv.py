@@ -61,9 +61,6 @@ config = collections.OrderedDict(
         ('momentum', 0.9),
         ('weight_decay', 0.0005),
 
-        ('milestones', [10, 20]),
-        ('gamma', 0.1),
-
         # arguments - task special model
         ('output_stride', 16),
         ('backbone', 'resnet'),
