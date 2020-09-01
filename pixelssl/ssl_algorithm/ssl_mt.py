@@ -1,12 +1,9 @@
 import os
 import time
 import random
-from PIL import Image
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
 from torch.autograd import Variable
 
 from pixelssl.utils import REGRESSION, CLASSIFICATION
@@ -367,7 +364,7 @@ class SSLMT(ssl_base._SSLBase):
                         'The main differences between this implementation and the original paper are:\n'
                         '  (1) This is an implementation for pixel-wise vision tasks\n'
                         '  (2) The two-heads outputs trick is disable in this implementation\n'
-                        '  (2) No extra perturbations between the inputs of the teacher and the student\n'
+                        '  (3) No extra perturbations between the inputs of the teacher and the student\n'
                         '      (The Gaussian noiser is provied, but it will degrade the performance)\n')
 
     def _inp_warn(self):

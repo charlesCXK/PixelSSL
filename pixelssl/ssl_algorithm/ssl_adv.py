@@ -13,6 +13,7 @@ from pixelssl.utils import logger, cmd, tool
 from pixelssl.nn import func
 from pixelssl.nn.lrer import PolynomialLR
 from pixelssl.nn.module import patch_replication_callback
+
 from . import ssl_base
 
 
@@ -260,17 +261,11 @@ class SSLADV(ssl_base._SSLBase):
                     
             # visualization
             if self.args.visualize and idx % self.args.visual_freq == 0:
-                u_inp_sample, u_pred_sample, u_cmap_sample = None, None, None
-                if self.args.unlabeled_batch_size > 0:
-                    u_inp_sample = func.split_tensor_tuple(inp, lbs, lbs+1, reduce_dim=True)
-                    u_pred_sample = func.split_tensor_tuple(activated_pred, lbs, lbs+1, reduce_dim=True)
-                    u_cmap_sample = torch.sigmoid(fake_confidence_map[lbs])
-
                 self._visualize(epoch, idx, True, 
                                 func.split_tensor_tuple(inp, 0, 1, reduce_dim=True),
                                 func.split_tensor_tuple(activated_pred, 0, 1, reduce_dim=True),
                                 func.split_tensor_tuple(gt, 0, 1, reduce_dim=True),
-                                torch.sigmoid(confidence_map[0]), u_inp_sample, u_pred_sample, u_cmap_sample)
+                                torch.sigmoid(confidence_map[0]))
 
             # the FC discriminator uses polynomiallr [ITER_LRERS]
             self.d_lrer.step()
@@ -390,22 +385,15 @@ class SSLADV(ssl_base._SSLBase):
     # Tool Functions for the SSL_ADV Framework
     # -------------------------------------------------------------------------------------------
 
-    def _visualize(self, epoch, idx, is_train, 
-                   l_inp, l_pred, l_gt, l_cmap,
-                   u_inp=None, u_pred=None, u_cmap=None):
+    def _visualize(self, epoch, idx, is_train, inp, pred, gt, cmap):
         # 'cmap' is the output of the FC discriminator
         
         visualize_path = self.args.visual_train_path if is_train else self.args.visual_val_path
         out_path = os.path.join(visualize_path, '{0}_{1}'.format(epoch, idx))
         
-        self.task_func.visualize(out_path, id_str='labeled', inp=l_inp, pred=l_pred, gt=l_gt)
-        l_cmap = l_cmap[0].data.cpu().numpy()
-        Image.fromarray((l_cmap * 255).astype('uint8'), mode='L').save(out_path + '_labeled-cmap.png')
-
-        if u_inp is not None and u_pred and not None and u_cmap is not None:
-            self.task_func.visualize(out_path, id_str='unlabeled', inp=u_inp, pred=u_pred, gt=None)
-            u_cmap = u_cmap[0].data.cpu().numpy()
-            Image.fromarray((u_cmap * 255).astype('uint8'), mode='L').save(out_path + '_unlabeled-cmap.png')
+        self.task_func.visualize(out_path, id_str='task', inp=inp, pred=pred, gt=gt)
+        cmap = cmap[0].data.cpu().numpy()
+        Image.fromarray((cmap * 255).astype('uint8'), mode='L').save(out_path + '_task-cmap.png')
 
     def _batch_prehandle(self, inp, gt):
         # add extra data augmentation process here if necessary
