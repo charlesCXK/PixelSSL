@@ -93,9 +93,9 @@ class SSLS4L(ssl_base._SSLBase):
         self.criterions = {'criterion': self.criterion, 'rotation_criterion': self.rotation_criterion}
 
         # the batch size is doubled in S4L since it creates an extra rotated sample for each sample
+        # NOTE: we do not regard the rotated samples as the labeled data
         self.args.batch_size *= 2
-        self.args.labeled_batch_size *= 2
-        self.args.unlabeled_batch_size *= 2
+        self.args.unlabeled_batch_size = self.args.batch_size - self.args.labeled_batch_size
 
         logger.log_info('In SSL_S4L algorithm, both learning rate and batch size are doubled: \n'
                         '  Total learn rate: {0}\n  Total labeled batch size: {1}\n'
@@ -117,7 +117,8 @@ class SSLS4L(ssl_base._SSLBase):
             # both 'inp' and 'gt' are tuples
             # the last element in the tuple 'gt' is the ground truth of the rotation angle
             inp, gt = self._batch_prehandle(inp, gt, True)
-
+            if len(gt) > 1 and idx == 0:
+                self._data_warn()
 
             self.optimizer.zero_grad()
 
@@ -127,7 +128,8 @@ class SSLS4L(ssl_base._SSLBase):
             activated_pred = tool.dict_value(resulter, 'activated_pred')
             pred_rotation = tool.dict_value(resulter, 'rotation')
 
-            # calculate the supervised task constraint on the labeled data
+            # calculate the supervised task constraint on the un-rotated labeled data
+            # NOTE: the supervised task constraint is not calculated on the rotated labeled data！
             l_pred = func.split_tensor_tuple(pred, 0, lbs)
             l_gt = func.split_tensor_tuple(gt, 0, lbs)
             l_inp = func.split_tensor_tuple(inp, 0, lbs)
@@ -188,6 +190,8 @@ class SSLS4L(ssl_base._SSLBase):
             timer = time.time()
 
             inp, gt = self._batch_prehandle(inp, gt, False)
+            if len(gt) > 1 and idx == 0:
+                self._data_warn()
 
             resulter, debugger = self.model.forward(inp)
             pred = tool.dict_value(resulter, 'pred')
@@ -278,6 +282,7 @@ class SSLS4L(ssl_base._SSLBase):
         self.task_func.visualize(out_path, id_str='task', inp=inp, pred=pred, gt=gt)
 
     def _batch_prehandle(self, inp, gt, is_train):
+        bs = inp[0].shape[0]
         rotation_angles = np.random.randint(low=1, high=4, size=inp[0].shape[0])
 
         inp_var = []
@@ -286,14 +291,14 @@ class SSLS4L(ssl_base._SSLBase):
 
             if is_train:
                 # create the extra rotated samples if 'is_train'
+                assert i.shape[0] == bs
                 rotated_i_shape = list(i.shape)
                 rotated_i_shape[0] *= 2
                 rotated_i = torch.zeros(rotated_i_shape).cuda()
 
-                for sdx in range(0, i.shape[0]):
-                    rdx = int(sdx * 2)
-                    rotated_i[rdx] = i[sdx]
-                    rotated_i[rdx + 1] = self._rotate_tensor(i[sdx], angle_idx=rotation_angles[sdx])
+                for sdx in range(0, bs):
+                    rotated_i[sdx] = i[sdx]
+                    rotated_i[bs + sdx] = self._rotate_tensor(i[sdx], angle_idx=rotation_angles[sdx])
                 inp_var.append(Variable(rotated_i))
 
             else:
@@ -307,14 +312,14 @@ class SSLS4L(ssl_base._SSLBase):
 
             if is_train:
                 # create the ground truth of the extra rotated samples if 'is_train'
+                assert g.shape[0] == bs
                 rotated_g_shape = list(g.shape)
                 rotated_g_shape[0] *= 2
                 rotated_g = torch.zeros(rotated_g_shape).cuda()
 
-                for sdx in range(0, g.shape[0]):
-                    rdx = int(sdx * 2)
-                    rotated_g[rdx] = g[sdx]
-                    rotated_g[rdx + 1] = self._rotate_tensor(g[sdx], angle_idx=rotation_angles[sdx])
+                for sdx in range(0, bs):
+                    rotated_g[sdx] = g[sdx]
+                    rotated_g[bs + sdx] = self._rotate_tensor(g[sdx], angle_idx=rotation_angles[sdx])
                 gt_var.append(Variable(rotated_g))
 
             else:
@@ -322,10 +327,10 @@ class SSLS4L(ssl_base._SSLBase):
         
         # create the ground truth of the rotation classifier
         rotation_gt = torch.zeros(inp[0].shape[0]).cuda()
-        for sdx in range(0, rotation_gt.shape[0]):
+        for sdx in range(0, bs):
             rotation_gt[sdx] = 0
-            if is_train and sdx % 2 == 1:
-                rotation_gt[sdx] = float(rotation_angles[int(sdx // 2)])
+            if is_train:
+                rotation_gt[bs + sdx] = float(rotation_angles[sdx])
 
         gt_var.append(Variable(rotation_gt.long()))
         gt = tuple(gt_var)
@@ -341,6 +346,17 @@ class SSLS4L(ssl_base._SSLBase):
             tensor = tensor.transpose(1, 2).flip(1)
         
         return tensor
+
+    def _data_warn(self):
+        logger.log_warn('More than one ground truth of the task model is given in SSL_S4L\n'
+                        'You try to train the task model with more than one (pred & gt) pairs\n'
+                        'Please make sure that:\n'
+                        '  (1) The prediction tuple has the same size as the ground truth tuple\n'
+                        '  (2) The elements with the same index in the two tuples are corresponding\n'
+                        '  (3) All elements in the ground truth tuple should be 4-dim tensors since S4L\n'
+                        '      will rotate them to match the rotated inputs\n'
+                        'Please implement a new SSL algorithm if you want a variant of SSL_S4L that\n' 
+                        'supports other formants (not 4-dim tensor) of the ground truth\n')
 
     def _algorithm_warn(self):
         logger.log_warn('This SSL_S4L algorithm reproducts the SSL algorithm from paper:\n'

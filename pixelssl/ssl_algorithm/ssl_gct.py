@@ -187,7 +187,7 @@ class SSLGCT(ssl_base._SSLBase):
 
             (l_inp, l_gt), (r_inp, r_gt) = self._batch_prehandle(inp, gt)
             if len(l_gt) == len(r_gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
 
             # calculate the ramp-up coefficient of the dynamic consistency constraint
             cur_steps = len(data_loader) * epoch + idx
@@ -310,7 +310,7 @@ class SSLGCT(ssl_base._SSLBase):
 
             (l_inp, l_gt), (r_inp, r_gt) = self._batch_prehandle(inp, gt)
             if len(l_gt) == len(r_gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
 
             l_dc_gt, r_dc_gt = None, None
             l_fc_mask, r_fc_mask = None, None
@@ -513,7 +513,7 @@ class SSLGCT(ssl_base._SSLBase):
 
         return (l_inp, l_gt), (r_inp, r_gt)
 
-    def _inp_warn(self):
+    def _data_warn(self):
         logger.log_warn('More than one ground truth of the task model is given in SSL_GCT\n'
                         'You try to train the task model with more than one (pred & gt) pairs\n'
                         'Please make sure that:\n'

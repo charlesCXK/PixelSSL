@@ -129,7 +129,7 @@ class SSLMT(ssl_base._SSLBase):
             # 's_inp', 't_inp' and 'gt' are tuples
             s_inp, t_inp, gt = self._batch_prehandle(inp, gt, True)
             if len(gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
 
             # calculate the ramp-up coefficient of the consistency constraint
             cur_step = len(data_loader) * epoch + idx
@@ -229,7 +229,7 @@ class SSLMT(ssl_base._SSLBase):
 
             s_inp, t_inp, gt = self._batch_prehandle(inp, gt, False)
             if len(gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
 
             s_resulter, s_debugger = self.s_model.forward(s_inp)
             if not 'pred' in s_resulter.keys() or not 'activated_pred' in s_resulter.keys():
@@ -367,7 +367,7 @@ class SSLMT(ssl_base._SSLBase):
                         '  (3) No extra perturbations between the inputs of the teacher and the student\n'
                         '      (The Gaussian noiser is provied, but it will degrade the performance)\n')
 
-    def _inp_warn(self):
+    def _data_warn(self):
         logger.log_warn('More than one ground truth of the task model is given in SSL_MT\n'
                         'You try to train the task model with more than one (pred & gt) pairs\n'
                         'Please make sure that: \n'

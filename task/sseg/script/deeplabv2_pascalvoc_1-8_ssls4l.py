@@ -20,7 +20,7 @@ config = collections.OrderedDict(
         # arguments - SSL algorithm
         ('ssl_algorithm', pixelssl.SSL_S4L),
 
-        ('rotation_scale', 0.1),
+        ('rotation_scale', 1),
 
         # arguments - exp
         # ('resume', 'pretrained/deeplabv2_pascalvoc_1-8_ssls4l.ckpt'),

@@ -129,7 +129,7 @@ class SSLADV(ssl_base._SSLBase):
 
             inp, gt = self._batch_prehandle(inp, gt)
             if len(gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
 
             # -----------------------------------------------------------------------------
             # step-1: train the task model
@@ -288,7 +288,7 @@ class SSLADV(ssl_base._SSLBase):
 
             inp, gt = self._batch_prehandle(inp, gt)
             if len(gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
             
             resulter, debugger = self.model.forward(inp)
             if not 'pred' in resulter.keys() or not 'activated_pred' in resulter.keys():
@@ -421,7 +421,7 @@ class SSLADV(ssl_base._SSLBase):
                         '\nSame as the original paper, the FC discriminator is trained by the Adam optimizer\n'
                         'with the PolynomialLR scheduler\n')
 
-    def _inp_warn(self):
+    def _data_warn(self):
         logger.log_warn('More than one ground truth of the task model is given in SSL_ADV\n'
                         'You try to train the task model with more than one (pred & gt) pairs\n'
                         'Please make sure that:\n'

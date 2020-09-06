@@ -93,7 +93,7 @@ class SSLNULL(ssl_base._SSLBase):
             # both 'inp' and 'gt' are tuples
             inp, gt = self._batch_prehandle(inp, gt)
             if len(gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
 
             self.optimizer.zero_grad()
 
@@ -153,7 +153,7 @@ class SSLNULL(ssl_base._SSLBase):
 
             inp, gt = self._batch_prehandle(inp, gt)
             if len(gt) > 1 and idx == 0:
-                self._inp_warn()
+                self._data_warn()
             
             resulter, debugger = self.model.forward(inp)
             if not 'pred' in resulter.keys() or not 'activated_pred' in resulter.keys():
@@ -246,7 +246,7 @@ class SSLNULL(ssl_base._SSLBase):
     def _algorithm_warn(self):
         logger.log_warn('This SSL_NULL algorithm is a fully-supervised baseline for SSL.\n')
 
-    def _inp_warn(self):
+    def _data_warn(self):
         logger.log_warn('More than one ground truth of the task model is given in SSL_NULL\n'
                         'You try to train the task model with more than one (pred & gt) pairs\n'
                         'Please make sure that:\n'
