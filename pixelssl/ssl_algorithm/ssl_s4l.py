@@ -26,6 +26,8 @@ This implementation only supports the rotation-based self-supervised pretext tas
 
 def add_parser_arguments(parser):
     ssl_base.add_parser_arguments(parser)
+    parser.add_argument('--rotated-sup-scale', type=float, default=-1, help='label-supervised coefficient for rotated labeled data')
+
     parser.add_argument('--rotation-scale', type=float, default=-1, help='rotation-based self-supervised coefficient')
 
 
@@ -64,7 +66,10 @@ class SSLS4L(ssl_base._SSLBase):
         # check SSL arguments
         if self.args.rotation_scale < 0:
             logger.log_err('The argument - rotation_scale - is not set (or invalid)\n'
-                    'Please set - rotation_scale >= 0 - for training\n')
+                           'Please set - rotation_scale >= 0 - for training\n')
+        if self.args.rotated_sup_scale < 0:
+            logger.log_err('The argument - rotated_sup_scale - is not set (or invalid)\n'
+                           'Please set - rotated_sup_scale >= 0 - for training\n')
 
     def _build(self, model_funcs, optimizer_funcs, lrer_funcs, criterion_funcs, task_func):
         self.task_func = task_func
@@ -129,13 +134,24 @@ class SSLS4L(ssl_base._SSLBase):
             pred_rotation = tool.dict_value(resulter, 'rotation')
 
             # calculate the supervised task constraint on the un-rotated labeled data
-            # NOTE: the supervised task constraint is not calculated on the rotated labeled data！
             l_pred = func.split_tensor_tuple(pred, 0, lbs)
             l_gt = func.split_tensor_tuple(gt, 0, lbs)
             l_inp = func.split_tensor_tuple(inp, 0, lbs)
 
             task_loss = self.criterion.forward(l_pred, l_gt[:-1], l_inp)
             task_loss = torch.mean(task_loss)
+            
+            # calculate the supervised task constraint on the rotated labeled data
+            original_bs = int(self.args.batch_size / 2)
+            l_rotated_pred = func.split_tensor_tuple(pred, original_bs, original_bs + lbs)
+            l_rotated_gt = func.split_tensor_tuple(gt, original_bs, original_bs + lbs)
+            l_rotated_inp = func.split_tensor_tuple(inp, original_bs, original_bs + lbs)
+
+            rotated_task_loss = self.criterion.forward(l_rotated_pred, l_rotated_gt[:-1], l_rotated_inp)
+            rotated_task_loss = self.args.rotated_sup_scale * torch.mean(rotated_task_loss)
+
+            task_loss = task_loss + rotated_task_loss
+            
             self.meters.update('task_loss', task_loss.data)
 
             # calculate the self-supervised rotation constraint
