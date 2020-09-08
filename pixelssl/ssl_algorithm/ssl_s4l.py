@@ -90,6 +90,16 @@ class SSLS4L(ssl_base._SSLBase):
         self.criterion = criterion_funcs[0](self.args)
         self.criterions = {'criterion': self.criterion}
 
+        # the batch size is doubled in S4L since S4L creates an extra rotated sample for each sample
+        # NOTE: we do not regard the rotated samples as the labeled data
+        self.args.batch_size *= 2
+        self.args.unlabeled_batch_size = self.args.batch_size - self.args.labeled_batch_size
+
+        logger.log_info('In SSL_S4L algorithm, the batch size are doubled: \n'
+                        '  Total labeled batch size: {0}\n'
+                        '  Total unlabeled batch size: {1}\n'
+                        .format(self.args.labeled_batch_size, self.args.unlabeled_batch_size))
+
         self._algorithm_warn()
 
     def _train(self, data_loader, epoch):
@@ -102,8 +112,11 @@ class SSLS4L(ssl_base._SSLBase):
         for idx, (inp, gt) in enumerate(data_loader):
             timer = time.time()
 
-            inp, gt = self._batch_prehandle(inp, gt)
-            if len(gt) > 1 and idx == 0:
+            # the rotated samples are generated in the 'self._batch_prehandle' function
+            # both 'inp' and 'gt' are tuples
+            # the last element in the tuple 'gt' is the ground truth of the rotation angle
+            inp, gt = self._batch_prehandle(inp, gt, is_train=True)
+            if len(gt) - 1 > 1 and idx == 0:
                 self._inp_warn()
 
             self.optimizer.zero_grad()
@@ -119,8 +132,7 @@ class SSLS4L(ssl_base._SSLBase):
             l_gt = func.split_tensor_tuple(gt, 0, lbs)
             l_inp = func.split_tensor_tuple(inp, 0, lbs)
 
-            # 'task_loss' is a tensor of 1-dim & n elements, where n == batch_size
-            task_loss = self.criterion.forward(l_pred, l_gt, l_inp)
+            task_loss = self.criterion.forward(l_pred, l_gt[:-1], l_inp)
             task_loss = torch.mean(task_loss)
             self.meters.update('task_loss', task_loss.data)
 
@@ -144,7 +156,7 @@ class SSLS4L(ssl_base._SSLBase):
                 self._visualize(epoch, idx, True, 
                                 func.split_tensor_tuple(inp, 0, 1, reduce_dim=True),
                                 func.split_tensor_tuple(activated_pred, 0, 1, reduce_dim=True),
-                                func.split_tensor_tuple(gt, 0, 1, reduce_dim=True))
+                                func.split_tensor_tuple(gt[:-1], 0, 1, reduce_dim=True))
 
             # update iteration-based lrers
             if not self.args.is_epoch_lrer:
@@ -162,8 +174,8 @@ class SSLS4L(ssl_base._SSLBase):
         for idx, (inp, gt) in enumerate(data_loader):
             timer = time.time()
 
-            inp, gt = self._batch_prehandle(inp, gt)
-            if len(gt) > 1 and idx == 0:
+            inp, gt = self._batch_prehandle(inp, gt, is_train=False)
+            if len(gt) - 1 > 1 and idx == 0:
                 self._inp_warn()
             
             resulter, debugger = self.model.forward(inp)
@@ -171,7 +183,7 @@ class SSLS4L(ssl_base._SSLBase):
             pred = tool.dict_value(resulter, 'pred')
             activated_pred = tool.dict_value(resulter, 'activated_pred')
 
-            task_loss = self.criterion.forward(pred, gt, inp)
+            task_loss = self.criterion.forward(pred, gt[:-1], inp)
             task_loss = torch.mean(task_loss)
             self.meters.update('task_loss', task_loss.data)
 
@@ -193,7 +205,7 @@ class SSLS4L(ssl_base._SSLBase):
                 self._visualize(epoch, idx, False, 
                                 func.split_tensor_tuple(inp, 0, 1, reduce_dim=True),
                                 func.split_tensor_tuple(activated_pred, 0, 1, reduce_dim=True),
-                                func.split_tensor_tuple(gt, 0, 1, reduce_dim=True))
+                                func.split_tensor_tuple(gt[:-1], 0, 1, reduce_dim=True))
         # metrics
         metrics_info = {'task': ''}
         for key in sorted(list(self.meters.keys())):
@@ -240,28 +252,79 @@ class SSLS4L(ssl_base._SSLBase):
 
         self.task_func.visualize(out_path, id_str='task', inp=inp, pred=pred, gt=gt)
         
-    def _batch_prehandle(self, inp, gt):
-        # add extra data augmentation process here if necessary
-        
+    def _batch_prehandle(self, inp, gt, is_train):
+        bs = inp[0].shape[0]
+        rotation_angles = np.random.randint(low=1, high=4, size=inp[0].shape[0])
+
         inp_var = []
         for i in inp:
-            inp_var.append(Variable(i).cuda())
+            i = i.cuda()
+
+            if is_train:
+                # create the extra rotated samples if 'is_train'
+                assert i.shape[0] == bs
+                rotated_i_shape = list(i.shape)
+                rotated_i_shape[0] *= 2
+                rotated_i = torch.zeros(rotated_i_shape).cuda()
+
+                for sdx in range(0, bs):
+                    rotated_i[sdx] = i[sdx]
+                    rotated_i[bs + sdx] = self._rotate_tensor(i[sdx], angle_idx=rotation_angles[sdx])
+                inp_var.append(Variable(rotated_i))
+
+            else:
+                inp_var.append(Variable(i))
+
         inp = tuple(inp_var)
-            
+
         gt_var = []
         for g in gt:
-            gt_var.append(Variable(g).cuda())
+            g = g.cuda()
+
+            if is_train:
+                # create the ground truth of the extra rotated samples if 'is_train'
+                assert g.shape[0] == bs
+                rotated_g_shape = list(g.shape)
+                rotated_g_shape[0] *= 2
+                rotated_g = torch.zeros(rotated_g_shape).cuda()
+
+                for sdx in range(0, bs):
+                    rotated_g[sdx] = g[sdx]
+                    rotated_g[bs + sdx] = self._rotate_tensor(g[sdx], angle_idx=rotation_angles[sdx])
+                gt_var.append(Variable(rotated_g))
+
+            else:
+                gt_var.append(Variable(g))
+        
+        # create the ground truth of the rotation classifier
+        rotation_gt = torch.zeros(inp[0].shape[0]).cuda()
+        for sdx in range(0, bs):
+            rotation_gt[sdx] = 0
+            if is_train:
+                rotation_gt[bs + sdx] = float(rotation_angles[sdx])
+
+        gt_var.append(Variable(rotation_gt.long()))
         gt = tuple(gt_var)
 
         return inp, gt
+
+    def _rotate_tensor(self, tensor, angle_idx):
+        if angle_idx == 1:
+            tensor = tensor.transpose(1, 2).flip(2)
+        elif angle_idx == 2:
+            tensor = tensor.flip(2).flip(1)
+        elif angle_idx == 3:
+            tensor = tensor.transpose(1, 2).flip(1)
+        
+        return tensor
 
     def _algorithm_warn(self):
         logger.log_warn('This SSL_S4L algorithm reproducts the SSL algorithm from paper:\n'
                         '  \'S4L: Self-Supervised Semi-Supervised Learning\'\n'
                         'The main differences between this implementation and the original paper are:\n'
                         '  (1) This is an implementation for pixel-wise vision tasks\n'
-                        '  (2) This implementation only supports the 4-angle (0, 90, 180, 270) rotation-based\n'
-                        '      self-supervised pretext task\n')
+                        '  (2) This implementation only supports the 4-angle (0, 90, 180, 270) rotation\n'
+                        '      based self-supervised pretext task\n')
 
 
     def _inp_warn(self):
