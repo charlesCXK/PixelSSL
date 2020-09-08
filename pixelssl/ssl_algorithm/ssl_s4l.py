@@ -52,7 +52,9 @@ class SSLS4L(ssl_base._SSLBase):
     def __init__(self, args):
         super(SSLS4L, self).__init__(args)
 
-        # define the task model and the FC discriminator
+        self.task_model = None
+        self.rotation_classifier = None
+
         self.model = None
         self.optimizer = None
         self.lrer = None
@@ -68,7 +70,10 @@ class SSLS4L(ssl_base._SSLBase):
         self.task_func = task_func
 
         # create models
-        self.model = func.create_model(model_funcs[0], 'model', args=self.args)
+        self.task_model = func.create_model(model_funcs[0], 'model', args=self.args).module
+        self.rotation_classifier = RotationClassifer(self.task_func.ssls4l_rc_in_channels())
+        self.model = WrappedS4LModel(self.args, self.task_model, self.rotation_classifier)
+        self.model = nn.DataParallel(self.model).cuda()
         # call 'patch_replication_callback' to enable the `sync_batchnorm` layer
         patch_replication_callback(self.model)
         self.models = {'model': self.model}
@@ -105,8 +110,6 @@ class SSLS4L(ssl_base._SSLBase):
 
             # forward the task model
             resulter, debugger = self.model.forward(inp)
-            if not 'pred' in resulter.keys() or not 'activated_pred' in resulter.keys():
-                self._pred_err()
 
             pred = tool.dict_value(resulter, 'pred')
             activated_pred = tool.dict_value(resulter, 'activated_pred')
@@ -164,8 +167,6 @@ class SSLS4L(ssl_base._SSLBase):
                 self._inp_warn()
             
             resulter, debugger = self.model.forward(inp)
-            if not 'pred' in resulter.keys() or not 'activated_pred' in resulter.keys():
-                self._pred_err()
             
             pred = tool.dict_value(resulter, 'pred')
             activated_pred = tool.dict_value(resulter, 'activated_pred')
@@ -259,7 +260,8 @@ class SSLS4L(ssl_base._SSLBase):
                         '  \'S4L: Self-Supervised Semi-Supervised Learning\'\n'
                         'The main differences between this implementation and the original paper are:\n'
                         '  (1) This is an implementation for pixel-wise vision tasks\n'
-                        '  (2) This implementation only supports the 4-angle (0, 90, 180, 270) rotation-based self-supervised pretext task\n')
+                        '  (2) This implementation only supports the 4-angle (0, 90, 180, 270) rotation-based\n'
+                        '      self-supervised pretext task\n')
 
 
     def _inp_warn(self):
@@ -273,9 +275,62 @@ class SSLS4L(ssl_base._SSLBase):
                         'Please implement a new SSL algorithm if you want a variant of SSL_S4L that\n' 
                         'supports other formants (not 4-dim tensor) of the ground truth\n')
 
-    def _pred_err(self):
-        logger.log_err('In SSL_S4L, the \'resulter\' dict returned by the task model should contain the following keys:\n'
-                       '   (1) \'pred\'\t=>\tunactivated task predictions\n'
-                       '   (2) \'activated_pred\'\t=>\tactivated task predictions\n'
-                       'We need both of them since some losses include the activation functions,\n'
-                       'e.g., the CrossEntropyLoss has contained SoftMax\n')
+
+class RotationClassifer(nn.Module):
+    def __init__(self, in_channels):
+        super(RotationClassifer, self).__init__()
+        self.conv1 = nn.Conv2d(in_channels, in_channels, kernel_size=4, stride=2, padding=1)
+        self.bn1 = nn.BatchNorm2d(in_channels)
+        self.conv2 = nn.Conv2d(in_channels, in_channels * 2, kernel_size=4, stride=2, padding=1)
+        self.bn2 = nn.BatchNorm2d(in_channels * 2)
+        self.pool = nn.AdaptiveAvgPool2d((1, 1))
+        self.classifier = nn.Linear(in_channels * 2, 4)
+
+        self.leaky_relu = nn.LeakyReLU(negative_slope=0.2, inplace=True)
+
+    def forward(self, task_pred):
+        x = self.leaky_relu(self.bn1(self.conv1(task_pred)))
+        x = self.leaky_relu(self.bn2(self.conv2(x)))
+        x = self.pool(x)
+        x = x.view(task_pred.shape[0], -1)
+        x = self.classifier(x)
+
+        return x
+
+
+class WrappedS4LModel(nn.Module):
+    def __init__(self, args, task_model, rotation_classifier):
+        super(WrappedS4LModel, self).__init__()
+        self.args = args
+        self.task_model = task_model
+        self.rotation_classifier = rotation_classifier
+
+        self.param_groups = self.task_model.param_groups + \
+            [{'params': self.rotation_classifier.parameters(), 'lr': self.args.lr}]
+    
+    def forward(self, inp):
+        resulter, debugger = {}, {}
+
+        t_resulter, t_debugger = self.task_model.forward(inp)
+
+        if not 'pred' in t_resulter.keys() or not 'activated_pred' in t_resulter.keys():
+            logger.log_err('In SSL_S4L, the \'resulter\' dict returned by the task model should contain the following keys:\n'
+                           '   (1) \'pred\'\t=>\tunactivated task predictions\n'
+                           '   (2) \'activated_pred\'\t=>\tactivated task predictions\n'
+                           'We need both of them since some losses include the activation functions,\n'
+                           'e.g., the CrossEntropyLoss has contained SoftMax\n')
+
+        if not 'ssls4l_rc_inp' in t_resulter.keys():
+            logger.log_err('In SSL_S4L, the \'resulter\' dict returned by the task model should contain the key:\n'
+                           '    \'ssls4l_rc_inp\'\t=>\tinputs of the rotation classifier (a 4-dim tensor)\n'
+                           'It can be the feature map encoded by the task model or the output of the task model\n'
+                           'Please add the key \'ssls4l_rc_inp\' in your task model\'s resulter\n')
+
+        rc_inp = tool.dict_value(t_resulter, 'ssls4l_rc_inp')
+        pred_rotation = self.rotation_classifier.forward(rc_inp)
+
+        resulter['pred'] = tool.dict_value(t_resulter, 'pred')
+        resulter['activated_pred'] = tool.dict_value(t_resulter, 'activated_pred')
+        resulter['rotation'] = pred_rotation
+
+        return resulter, debugger
