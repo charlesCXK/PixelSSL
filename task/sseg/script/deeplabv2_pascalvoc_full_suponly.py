@@ -21,8 +21,8 @@ config = collections.OrderedDict(
         ('ssl_algorithm', pixelssl.SSL_NULL),
 
         # arguments - exp
-        ('resume', 'pretrained/deeplabv2_pascalvoc_full_suponly.ckpt'),
-        ('validation', True),
+        # ('resume', 'pretrained/deeplabv2_pascalvoc_full_suponly.ckpt'),
+        # ('validation', True),
         
         ('out_path', 'result'),
         

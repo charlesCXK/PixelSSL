@@ -39,20 +39,20 @@ def add_parser_arguments(parser):
     parser.add_argument('--checkpoint-freq', type=int, default=1, metavar='', help='exp - checkpoint saving frequency during training [unit: epoch]')
 
     # dataset / dataloader arguments
-    parser.add_argument('--trainset', type=yaml.full_load, default={}, metavar='', help='data - path of the train dataset of format {dataset_type: [path1, path2]}')
-    parser.add_argument('--valset', type=yaml.full_load, default={}, metavar='', help='data - path of the validate dataset of format {dataset_type: [path1, path2]}')
+    parser.add_argument('--trainset', type=yaml.load, default={}, metavar='', help='data - path of the train dataset of format {dataset_type: [path1, path2]}')
+    parser.add_argument('--valset', type=yaml.load, default={}, metavar='', help='data - path of the validate dataset of format {dataset_type: [path1, path2]}')
     parser.add_argument('--num-workers', type=int, default=1, metavar='', help='data - number of workers for the data loader on each GPU')
     parser.add_argument('--im-size', type=int, default=None, help='data - target size of the input images')
-    parser.add_argument('--unlabeledset', type=yaml.full_load, default={}, metavar='', help='data - path of the extra unlabeled dataset of format {dataset_type: [path1, path2]}')
+    parser.add_argument('--unlabeledset', type=yaml.load, default={}, metavar='', help='data - path of the extra unlabeled dataset of format {dataset_type: [path1, path2]}')
     parser.add_argument('--sublabeled-path', type=str, default='', metavar='', help='data - path of the file that stores the prefix of the labeled subset')
     parser.add_argument('--ignore-unlabeled', type=cmd.str2bool, default=True, metavar='', help='data - ignore (do not use) the unlabeled samples during training if True')
 
     # SSL algorithm arguments
     parser.add_argument('--ssl-algorithm', type=str, default='', metavar='', help='ssl - the SSL algorithm used in experiment')
-    parser.add_argument('--models', type=yaml.full_load, default={}, metavar='', help='ssl - dict saves all {component_key: task_model} for the SSL algorithm')
-    parser.add_argument('--optimizers', type=yaml.full_load, default={}, metavar='', help='ssl - dict saves all {component_key: task_optimizer} for the SSL algorithm')
-    parser.add_argument('--lrers', type=yaml.full_load, default={}, metavar='', help='ssl - dict saves all {component_key: task_lrer} for the SSL algorithm')
-    parser.add_argument('--criterions', type=yaml.full_load, default={}, metavar='', help='ssl - dict saves all {componet_key: task_criterion} for the SSL algorithm')
+    parser.add_argument('--models', type=yaml.load, default={}, metavar='', help='ssl - dict saves all {component_key: task_model} for the SSL algorithm')
+    parser.add_argument('--optimizers', type=yaml.load, default={}, metavar='', help='ssl - dict saves all {component_key: task_optimizer} for the SSL algorithm')
+    parser.add_argument('--lrers', type=yaml.load, default={}, metavar='', help='ssl - dict saves all {component_key: task_lrer} for the SSL algorithm')
+    parser.add_argument('--criterions', type=yaml.load, default={}, metavar='', help='ssl - dict saves all {componet_key: task_criterion} for the SSL algorithm')
 
     # training arguemnts
     parser.add_argument('--epochs', type=int, default=1, metavar='', help='train/val - total epochs for training')
