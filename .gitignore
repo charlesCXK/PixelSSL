@@ -97,3 +97,9 @@ ENV/
 
 # Project files
 .vscode
+
+config_ussc.py
+run_cxk.py
+
+
+
