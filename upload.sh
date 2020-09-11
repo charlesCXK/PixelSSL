@@ -1,3 +1,3 @@
 git add --all
 git commit -m 'update'
-git push
+git push --set-upstream origin cxk
