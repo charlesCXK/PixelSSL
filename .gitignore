@@ -98,7 +98,7 @@ ENV/
 # Project files
 .vscode
 
-#config_ussc.py
+config_ussc.py
 run_cxk.py
 config_au.py
 config_ca.py
