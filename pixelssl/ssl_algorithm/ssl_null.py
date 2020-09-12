@@ -51,6 +51,7 @@ class SSLNULL(ssl_base._SSLBase):
         self.optimizer = None
         self.lrer = None
         self.criterion = None
+        self.max_miou = 0
 
     def _build(self, model_funcs, optimizer_funcs, lrer_funcs, criterion_funcs, task_func):
         self.task_func = task_func
@@ -188,6 +189,9 @@ class SSLNULL(ssl_base._SSLBase):
                 for id_str in metrics_info.keys():
                     if key.startswith(id_str):
                         metrics_info[id_str] += '{0}: {1:.6}\t'.format(key, self.meters[key])
+                        if 'mIoU' in key:
+                            self.max_miou = max(self.max_miou, float(self.meters[key]))
+                            logger.log_info('Max mIoU is {0}\n'.format(self.max_miou))
             
         logger.log_info('Validation metrics:\n task-metrics\t=>\t{0}\n'.format(metrics_info['task'].replace('_', '-')))
 

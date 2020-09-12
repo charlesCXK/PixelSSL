@@ -356,6 +356,9 @@ class SSLGCT(ssl_base._SSLBase):
                 for id_str in metrics_info.keys():
                     if key.startswith(id_str):
                         metrics_info[id_str] += '{0}: {1:.6f}\t'.format(key, self.meters[key])
+                        if 'mIoU' in key:
+                            self.max_miou = max(self.max_miou, float(self.meters[key]))
+                            logger.log_info('Max mIoU is {0}\n'.format(self.max_miou))
         
         logger.log_info('Validation metrics:\n  l-metrics\t=>\t{0}\n  r-metrics\t=>\t{1}\n'
                         .format(metrics_info['l'].replace('_', '-'), metrics_info['r'].replace('_', '-')))
