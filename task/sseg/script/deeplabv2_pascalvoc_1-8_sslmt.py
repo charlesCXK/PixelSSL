@@ -26,8 +26,8 @@ config = collections.OrderedDict(
         ('ema_decay', 0.99),
 
         # arguments - exp
-        ('resume', 'pretrained/deeplabv2_pascalvoc_1-8_sslmt.ckpt'),
-        ('validation', True),
+        # ('resume', 'pretrained/deeplabv2_pascalvoc_1-8_sslmt.ckpt'),
+        # ('validation', True),
         
         ('out_path', 'result'),
         

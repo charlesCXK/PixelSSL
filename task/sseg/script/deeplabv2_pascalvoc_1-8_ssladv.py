@@ -28,8 +28,8 @@ config = collections.OrderedDict(
         ('unlabeled_for_discriminator', True),
 
         # arguments - exp
-        ('resume', 'pretrained/deeplabv2_pascalvoc_1-8_ssladv.ckpt'),
-        ('validation', True),
+        # ('resume', 'pretrained/deeplabv2_pascalvoc_1-8_ssladv.ckpt'),
+        # ('validation', True),
         
         ('out_path', 'result'),
         

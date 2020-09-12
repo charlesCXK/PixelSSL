@@ -31,8 +31,8 @@ config = collections.OrderedDict(
         ('nu', 1),
 
         # arguments - exp
-        ('resume', 'pretrained/deeplabv2_pascalvoc_1-8_sslgct.ckpt'),
-        ('validation', True),
+        # ('resume', 'pretrained/deeplabv2_pascalvoc_1-8_sslgct.ckpt'),
+        # ('validation', True),
         
         ('out_path', 'result'),
         
