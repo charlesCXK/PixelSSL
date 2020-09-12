@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="561517eb-c92b-4f65-bc50-10dc95f46451" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,18 +13,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_mt.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="291" column="86" selection-start-line="291" selection-start-column="86" selection-end-line="291" selection-end-column="86" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_adv.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -79,10 +68,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
-              <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+              <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -96,11 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
-              <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+              <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -177,8 +175,9 @@
         <option value="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_mt.py" />
         <option value="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_adv.py" />
         <option value="$PROJECT_DIR$/task/sseg/script/deeplabv2_pascalvoc_1-8_suponly_cxk.py" />
-        <option value="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh" />
         <option value="$PROJECT_DIR$/task/sseg/script/deeplabv2_pascalvoc_1-8_sslgct_cxk.py" />
+        <option value="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh" />
+        <option value="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh" />
       </list>
     </option>
   </component>
@@ -373,15 +372,16 @@
       <option name="presentableId" value="Default" />
       <updated>1599824430970</updated>
       <workItem from="1599824432640" duration="12781000" />
-      <workItem from="1599877991491" duration="9558000" />
+      <workItem from="1599877991491" duration="9597000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22339000" />
+    <option name="totallyTimeSpent" value="22378000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="327" y="23" width="1402" height="944" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32132354" />
@@ -560,13 +560,6 @@
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -774,13 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task/sseg/script/deeplabv2_pascalvoc_1-8_sslgct_cxk.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -791,7 +777,21 @@
     <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
-          <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+          <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
         </state>
       </provider>
     </entry>
