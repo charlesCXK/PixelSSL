@@ -288,7 +288,7 @@ class SSLMT(ssl_base._SSLBase):
                     if key.startswith(id_str):
                         metrics_info[id_str] += '{0}: {1:.6}\t'.format(key, self.meters[key])
                         if 'mIoU' in key:
-                            self.max_miou = max(self.max_miou, float(self.meters[key]))
+                            self.max_miou = max(self.max_miou, float(self.meters[key].avg))
                             logger.log_info('Max mIoU is {0}\n'.format(self.max_miou))
 
         logger.log_info('Validation metrics:\n  student-metrics\t=>\t{0}\n  teacher-metrics\t=>\t{1}\n'
