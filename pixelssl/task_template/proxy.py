@@ -397,7 +397,7 @@ class TaskProxy:
             valset = nndata.JointDatasetsWrapper(valsets, [], ignore_unlabeled=True)
             val_samples = len(valset.labeled_idxs)
 
-        self.val_loader = torch.utils.data.DataLoader(valset, batch_size=self.args.batch_size,
+        self.val_loader = torch.utils.data.DataLoader(valset, batch_size=1,
             shuffle=False, num_workers=self.args.num_workers, pin_memory=True)
 
         # check the data loaders

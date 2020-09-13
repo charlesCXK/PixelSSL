@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="561517eb-c92b-4f65-bc50-10dc95f46451" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/task/sseg/script/cxktest.py" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/script/cxktest.py" afterDir="false" />
-    </list>
+    <list default="true" id="561517eb-c92b-4f65-bc50-10dc95f46451" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +13,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task/sseg/data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="211" column="41" selection-start-line="211" selection-start-column="41" selection-end-line="211" selection-end-column="41" />
+            <state relative-caret-position="565">
+              <caret line="263" column="38" lean-forward="true" selection-start-line="263" selection-start-column="38" selection-end-line="263" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_full_suponly.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -36,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_null.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="174" column="93" selection-start-line="174" selection-start-column="93" selection-end-line="174" selection-end-column="93" />
+            <state relative-caret-position="437">
+              <caret line="146" column="17" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="17" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -48,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-142">
-              <caret line="371" column="33" selection-start-line="371" selection-start-column="33" selection-end-line="371" selection-end-column="33" />
+            <state relative-caret-position="438">
+              <caret line="292" column="34" lean-forward="true" selection-start-line="292" selection-start-column="34" selection-end-line="292" selection-end-column="34" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -69,19 +76,19 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task/sseg/script/cxktest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="617">
-              <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+            <state relative-caret-position="522">
+              <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pixelssl/task_template/proxy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
+            <state relative-caret-position="1372">
               <caret line="440" column="21" selection-start-line="440" selection-start-column="8" selection-end-line="440" selection-end-column="21" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -110,18 +117,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task/sseg/script/deeplabv2_pascalvoc_1-8_sslgct.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -133,7 +128,6 @@
       <find>mIoU</find>
       <find>mIoU_str</find>
       <find>task-metric-mIoU</find>
-      <find>_validate</find>
       <find>train</find>
       <find>_train</find>
       <find>metric</find>
@@ -156,6 +150,7 @@
       <find>_load_dataset</find>
       <find>data_loader</find>
       <find>FixScaleCrop</find>
+      <find>_validate</find>
     </findStrings>
     <replaceStrings>
       <replace>yaml.load</replace>
@@ -190,15 +185,16 @@
         <option value="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly.sh" />
         <option value="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh" />
         <option value="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_full_suponly.sh" />
-        <option value="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_null.py" />
         <option value="$PROJECT_DIR$/pixelssl/task_template/proxy.py" />
         <option value="$PROJECT_DIR$/task/sseg/script/cxktest.py" />
+        <option value="$PROJECT_DIR$/task/sseg/data.py" />
+        <option value="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_null.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="575" />
-    <option name="y" value="69" />
+    <option name="x" value="674" />
+    <option name="y" value="72" />
     <option name="width" value="1810" />
     <option name="height" value="1250" />
   </component>
@@ -399,15 +395,15 @@
       <option name="presentableId" value="Default" />
       <updated>1599824430970</updated>
       <workItem from="1599824432640" duration="12781000" />
-      <workItem from="1599877991491" duration="20112000" />
+      <workItem from="1599877991491" duration="21524000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32893000" />
+    <option name="totallyTimeSpent" value="34305000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="523" y="69" width="1810" height="1250" extended-state="0" />
+    <frame x="674" y="72" width="1810" height="1250" extended-state="0" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20644796" />
@@ -740,13 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_full_suponly.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task/sseg/script/deeplabv2_pascalvoc_1-8_sslgct.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
@@ -777,36 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-142">
-          <caret line="371" column="33" selection-start-line="371" selection-start-column="33" selection-end-line="371" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pixelssl/task_template/proxy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="440" column="21" selection-start-line="440" selection-start-column="8" selection-end-line="440" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_null.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="174" column="93" selection-start-line="174" selection-start-column="93" selection-end-line="174" selection-end-column="93" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pixelssl/task_template/data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -823,17 +782,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task/sseg/data.py">
+    <entry file="file://$PROJECT_DIR$/task/sseg/script/cxktest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="211" column="41" selection-start-line="211" selection-start-column="41" selection-end-line="211" selection-end-column="41" />
+        <state relative-caret-position="522">
+          <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task/sseg/script/cxktest.py">
+    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_full_suponly.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+        <state relative-caret-position="133">
+          <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task/sseg/data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="263" column="38" lean-forward="true" selection-start-line="263" selection-start-column="38" selection-end-line="263" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="292" column="34" lean-forward="true" selection-start-line="292" selection-start-column="34" selection-end-line="292" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_null.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="146" column="17" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pixelssl/task_template/proxy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1372">
+          <caret line="440" column="21" selection-start-line="440" selection-start-column="8" selection-end-line="440" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
