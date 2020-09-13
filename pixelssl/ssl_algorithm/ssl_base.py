@@ -69,6 +69,7 @@ class _SSLBase:
         self.optimizers = {}                    # dict of the optimizers required by the task and algorithm
         self.lrers = {}                         # dict of the learn rate required by the task and algorithm
         self.criterions = {}                    # dict of the criterions required by the task and algorithm
+        self.max_miou = 0
 
     # ---------------------------------------------------------------------
     # Interface for task proxy

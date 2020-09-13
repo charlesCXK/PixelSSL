@@ -70,6 +70,7 @@ class SSLADV(ssl_base._SSLBase):
 
         # prepare the arguments for multiple GPUs
         self.args.discriminator_lr *= self.args.gpus
+        self.max_miou = 0
 
         # check SSL arguments
         if self.args.adv_for_labeled:
