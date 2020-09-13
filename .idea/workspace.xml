@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="561517eb-c92b-4f65-bc50-10dc95f46451" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task/sseg/aml/command.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml/command.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly_cxk.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_full_suponly.sh" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_full_suponly.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
@@ -96,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task/sseg/aml/command.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
-              <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+              <caret line="5" column="58" lean-forward="true" selection-start-line="5" selection-start-column="58" selection-end-line="5" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -188,8 +182,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="356" />
-    <option name="y" value="294" />
+    <option name="x" value="504" />
+    <option name="y" value="175" />
     <option name="width" value="1813" />
     <option name="height" value="1214" />
   </component>
@@ -390,15 +384,15 @@
       <option name="presentableId" value="Default" />
       <updated>1599824430970</updated>
       <workItem from="1599824432640" duration="12781000" />
-      <workItem from="1599877991491" duration="15024000" />
+      <workItem from="1599877991491" duration="15489000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27805000" />
+    <option name="totallyTimeSpent" value="28270000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="356" y="294" width="1813" height="1214" extended-state="0" />
+    <frame x="504" y="175" width="1813" height="1214" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -774,13 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_suponly.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -805,7 +792,14 @@
     <entry file="file://$PROJECT_DIR$/task/sseg/aml/command.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
-          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+          <caret line="5" column="58" lean-forward="true" selection-start-line="5" selection-start-column="58" selection-end-line="5" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
