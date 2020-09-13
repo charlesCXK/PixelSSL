@@ -57,7 +57,7 @@ config = collections.OrderedDict(
 
         # arguments - training details
         ('epochs', 40),
-        ('batch_size', 4),
+        ('batch_size', 1),
         ('unlabeled_batch_size', 0), 
 
     ]
