@@ -153,7 +153,7 @@ class SSLNULL(ssl_base._SSLBase):
             timer = time.time()
 
             inp, gt = self._batch_prehandle(inp, gt)
-            print(inp[0].shape, gt[0].shape)
+            # print(inp[0].shape, gt[0].shape)
             if len(gt) > 1 and idx == 0:
                 self._inp_warn()
             

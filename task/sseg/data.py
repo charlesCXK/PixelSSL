@@ -251,6 +251,10 @@ class FixScaleCrop(object):
     def __call__(self, sample):
         img = sample['image']
         mask = sample['label']
+
+        ''' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! '''
+        return {'image': img, 'label': mask}
+
         w, h = img.size
         if w > h:
             oh = self.crop_size
