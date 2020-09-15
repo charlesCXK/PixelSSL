@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="561517eb-c92b-4f65-bc50-10dc95f46451" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task/sseg/script/cxktest.py" beforeDir="false" afterPath="$PROJECT_DIR$/task/sseg/script/cxktest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py" beforeDir="false" afterPath="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="316" column="21" selection-start-line="316" selection-start-column="21" selection-end-line="316" selection-end-column="21" />
+            <state relative-caret-position="560">
+              <caret line="335" column="46" selection-start-line="335" selection-start-column="46" selection-end-line="335" selection-end-column="46" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#4992#6750#0" />
@@ -59,7 +58,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task/sseg/script/cxktest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="283">
@@ -129,7 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>GaussianBlurLayer</find>
       <find>_validate</find>
       <find>FixScaleCrop</find>
       <find>dc_threshold</find>
@@ -159,6 +157,7 @@
       <find>activated_pred</find>
       <find>is_train</find>
       <find>fc_ssr_scale</find>
+      <find>resume</find>
     </findStrings>
     <replaceStrings>
       <replace>yaml.load</replace>
@@ -196,8 +195,8 @@
         <option value="$PROJECT_DIR$/task/sseg/aml/command.sh" />
         <option value="$PROJECT_DIR$/task/sseg/module/deeplab_v2.py" />
         <option value="$PROJECT_DIR$/task/sseg/script/deeplabv2_pascalvoc_1-8_sslgct.py" />
-        <option value="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py" />
         <option value="$PROJECT_DIR$/task/sseg/script/cxktest.py" />
+        <option value="$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py" />
       </list>
     </option>
   </component>
@@ -381,12 +380,12 @@
       <workItem from="1599877991491" duration="29038000" />
       <workItem from="1600047723226" duration="15941000" />
       <workItem from="1600136272072" duration="107000" />
-      <workItem from="1600136625196" duration="3627000" />
+      <workItem from="1600136625196" duration="3772000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61494000" />
+    <option name="totallyTimeSpent" value="61639000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="758" y="78" width="1448" height="1227" extended-state="0" />
@@ -804,20 +803,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="316" column="21" selection-start-line="316" selection-start-column="21" selection-end-line="316" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#4992#6750#0" />
-            <element signature="e#19238#19935#0" />
-            <element signature="e#19977#20956#0" />
-            <element signature="e#24279#24747#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task/sseg/aml_script/deeplabv2_pascalvoc_1-8_sslgct_cxk.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -843,6 +828,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pixelssl/ssl_algorithm/ssl_gct.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="335" column="46" selection-start-line="335" selection-start-column="46" selection-end-line="335" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#4992#6750#0" />
+            <element signature="e#19238#19935#0" />
+            <element signature="e#19977#20956#0" />
+            <element signature="e#24279#24747#0" />
+          </folding>
         </state>
       </provider>
     </entry>
