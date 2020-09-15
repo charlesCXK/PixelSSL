@@ -333,6 +333,11 @@ class SSLGCT(ssl_base._SSLBase):
             l_loss = self._task_model_iter(epoch, idx, False, 'l', lbs, l_inp, l_gt, l_dc_gt, l_fc_mask, 1)
             r_loss = self._task_model_iter(epoch, idx, False, 'r', lbs, r_inp, r_gt, r_dc_gt, r_fc_mask, 1)
 
+            mean_perd = (l_resulter[0] + r_resulter[0]) * 0.5
+            activated_mean_pred = F.softmax(mean_perd, dim=1)
+
+            self.task_func.metrics((activated_mean_pred, ), l_gt, l_inp, self.meters, id_str='l')
+
             self.meters.update('batch_time', time.time() - timer)
             if idx % self.args.log_freq == 0:
                 logger.log_info('step: [{0}][{1}/{2}]\tbatch-time: {meters[batch_time]:.3f}\n'
@@ -466,7 +471,7 @@ class SSLGCT(ssl_base._SSLBase):
             fd_loss = self.args.fd_scale * self.fd_criterion.forward(flawmap, flawmap_gt)
             self.meters.update('{0}_fd_loss'.format(mid), torch.mean(fd_loss).data)
 
-            self.task_func.metrics(activated_pred, gt, inp, self.meters, id_str=mid)
+            # self.task_func.metrics(activated_pred, gt, inp, self.meters, id_str=mid)
         
         # visualization
         if self.args.visualize and idx % self.args.visual_freq == 0:
